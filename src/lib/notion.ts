@@ -2,6 +2,7 @@ import { Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client"
 
 interface CardContentData {
+  pageId: string
   title: string
   date: string
   summary: string
@@ -34,6 +35,7 @@ export async function queryDatabase(databaseId: string) {
       const tagsProp = props["Tags"]
 
       return {
+        pageId: item?.id,
         title:
           titleProp?.type === "title"
             ? titleProp.title?.[0]?.plain_text ?? ""
