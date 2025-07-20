@@ -25,6 +25,7 @@ export default function Home() {
               date={item.date}
               summary={item.summary}
               tags={item.tags}
+              pageId={item.pageId}
             ></Card>
           ))}
       </section>

@@ -6,11 +6,21 @@ export interface CardProps {
   date: string
   summary: string
   tags: string[]
+  pageId: string
 }
 
-export default function Card({ title, date, summary, tags }: CardProps) {
+export default function Card({
+  title,
+  date,
+  summary,
+  tags,
+  pageId,
+}: CardProps) {
+  const handleCardClick = () => {
+    alert(pageId)
+  }
   return (
-    <div className={styles.gridItem}>
+    <div className={styles.gridItem} onClick={handleCardClick}>
       <p>{title}</p>
       <p>{date}</p>
       <p>{summary}</p>
