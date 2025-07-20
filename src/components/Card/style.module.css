@@ -1,0 +1,15 @@
+.gridItem {
+  border: 2px solid;
+  border-radius: 25px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tags {
+  display: flex;
+  list-style-type: none;
+  gap: 10px;
+  margin-top: 10px;
+}
