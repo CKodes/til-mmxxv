@@ -10,10 +10,12 @@ interface CardContentData {
 }
 
 const apiKey = process.env.NOTION_API_KEY
-const notion = new Client({ auth: apiKey })
+const getNotionClient = () => new Client({ auth: apiKey })
 
 export async function queryDatabase(databaseId: string) {
   console.log("Querying database...")
+  const notion = getNotionClient()
+
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -56,6 +58,8 @@ export async function queryDatabase(databaseId: string) {
 }
 
 export async function queryPage(pageId: string) {
+  const notion = getNotionClient()
+
   console.log("Querying page...")
   const response = await notion.blocks.children.list({
     block_id: pageId,
