@@ -1,5 +1,7 @@
-import React, { useState } from "react"
+// import React, { useState } from "react"
+import React from "react"
 import styles from "./style.module.css"
+import { useRouter } from "next/navigation"
 
 export interface CardProps {
   title: string
@@ -7,6 +9,7 @@ export interface CardProps {
   summary: string
   tags: string[]
   pageId: string
+  slug: string
 }
 
 export default function Card({
@@ -15,15 +18,14 @@ export default function Card({
   summary,
   tags,
   pageId,
+  slug,
 }: CardProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [pageData, setPageData] = useState<any>(null)
+  const router = useRouter()
 
   const handleCardClick = () => {
-    fetch(`api/notion?pageId=${pageId}`, { method: "GET" }).then((res) =>
-      res.json().then(setPageData).catch(console.error)
-    )
+    router.push(`/blogPage/${slug}`)
   }
+
   return (
     <div className={styles.gridItem} onClick={handleCardClick}>
       <p>{title}</p>
@@ -34,7 +36,6 @@ export default function Card({
           <li key={i}>{tag}</li>
         ))}
       </ul>
-      {pageData && <pre>{JSON.stringify(pageData, null, 2)}</pre>}
     </div>
   )
 }
