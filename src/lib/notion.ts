@@ -6,6 +6,7 @@ interface CardContentData {
   title: string
   date: string
   summary: string
+  slug: string
   tags: string[]
 }
 
@@ -35,6 +36,7 @@ export async function queryDatabase(databaseId: string) {
       const dateProp = props["Date"]
       const summaryProp = props["Summary"]
       const tagsProp = props["Tags"]
+      const slugProp = props["Slug"]
 
       return {
         pageId: item?.id,
@@ -51,6 +53,10 @@ export async function queryDatabase(databaseId: string) {
           tagsProp?.type === "multi_select"
             ? tagsProp.multi_select.map((tag) => tag.name)
             : [],
+        slug:
+          slugProp?.type === "rich_text"
+            ? slugProp.rich_text?.[0]?.plain_text ?? ""
+            : "",
       }
     })
   console.log("Database response returned")
