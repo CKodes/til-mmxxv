@@ -6,8 +6,13 @@ export async function POST() {
   return Response.json(data)
 }
 
-export async function GET() {
-  const pageId: string = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const pageId = searchParams.get("pageId")
+
+  if (!pageId) {
+    return new Response("Missing pageId", { status: 400 })
+  }
   const pageData = await queryPage(pageId)
   return Response.json(pageData)
 }

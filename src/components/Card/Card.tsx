@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styles from "./style.module.css"
 
 export interface CardProps {
@@ -16,8 +16,13 @@ export default function Card({
   tags,
   pageId,
 }: CardProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [pageData, setPageData] = useState<any>(null)
+
   const handleCardClick = () => {
-    alert(pageId)
+    fetch(`api/notion?pageId=${pageId}`, { method: "GET" }).then((res) =>
+      res.json().then(setPageData).catch(console.error)
+    )
   }
   return (
     <div className={styles.gridItem} onClick={handleCardClick}>
@@ -29,6 +34,7 @@ export default function Card({
           <li key={i}>{tag}</li>
         ))}
       </ul>
+      {pageData && <pre>{JSON.stringify(pageData, null, 2)}</pre>}
     </div>
   )
 }
