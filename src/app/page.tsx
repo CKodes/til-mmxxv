@@ -14,27 +14,35 @@ export default function Home() {
       .then(setNotionData)
       .catch(console.error)
   }
-  return (
-    <main className={styles.main}>
-      <section className={styles.grid}>
-        {notionData &&
-          notionData.map((item: CardProps, i: number) => (
-            <Card
-              key={i}
-              title={item.title}
-              date={item.date}
-              summary={item.summary}
-              tags={item.tags}
-              pageId={item.pageId}
-              slug={item.slug}
-            ></Card>
-          ))}
-      </section>
 
-      <div>
-        <button onClick={handleClickPost}>Load Notion Data</button>
-        {notionData && <pre>{JSON.stringify(notionData, null, 2)}</pre>}
-      </div>
-    </main>
+  const toggleDarkMode = () => {
+    document.body.classList.toggle("dark-mode")
+  }
+
+  return (
+    <>
+      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
+      <main className={styles.main}>
+        <section className={styles.grid}>
+          {notionData &&
+            notionData.map((item: CardProps, i: number) => (
+              <Card
+                key={i}
+                title={item.title}
+                date={item.date}
+                summary={item.summary}
+                tags={item.tags}
+                pageId={item.pageId}
+                slug={item.slug}
+              ></Card>
+            ))}
+        </section>
+
+        <div>
+          <button onClick={handleClickPost}>Load Notion Data</button>
+          {notionData && <pre>{JSON.stringify(notionData, null, 2)}</pre>}
+        </div>
+      </main>
+    </>
   )
 }
