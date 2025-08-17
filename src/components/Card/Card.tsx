@@ -1,4 +1,4 @@
-// import React, { useState } from "react"
+"use client"
 import React from "react"
 import styles from "./style.module.css"
 import { useRouter } from "next/navigation"
@@ -8,24 +8,14 @@ export interface CardProps {
   date: string
   summary: string
   tags: string[]
-  pageId: string
   slug: string
 }
 
-export default function Card({
-  title,
-  date,
-  summary,
-  tags,
-  pageId,
-  slug,
-}: CardProps) {
+export default function Card({ title, date, summary, tags, slug }: CardProps) {
   const router = useRouter()
-
   const handleCardClick = () => {
     router.push(`/blogPage/${slug}`)
   }
-
   return (
     <div className={styles.gridItem} onClick={handleCardClick}>
       <p>{title}</p>
