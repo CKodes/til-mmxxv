@@ -2,19 +2,27 @@
 
 import Card, { CardProps } from "@components/Card/Card"
 import styles from "./page.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [notionData, setNotionData] = useState<any>(null)
 
-  const handleClickPost = () => {
-    fetch("/api/notion", { method: "Post" })
-      .then((res) => res.json())
-      .then(setNotionData)
-      .catch(console.error)
-  }
+  useEffect(() => {
+    async function fetchNotionData() {
+      try {
+        const res = await fetch("/api/notion", { method: "POST" })
+        const data = await res.json()
+        setNotionData(data)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        console.log(fetchNotionData())
+      }
+    }
 
+    fetchNotionData()
+  }, [])
   const toggleDarkMode = () => {
     document.body.classList.toggle("dark-mode")
   }
@@ -39,7 +47,6 @@ export default function Home() {
         </section>
 
         <div>
-          <button onClick={handleClickPost}>Load Notion Data</button>
           {notionData && <pre>{JSON.stringify(notionData, null, 2)}</pre>}
         </div>
       </main>
