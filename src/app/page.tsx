@@ -1,6 +1,7 @@
 import Card, { CardProps } from "@components/Card/Card"
 import styles from "./page.module.css"
 import { queryDatabase } from "@lib/notion"
+import StickyNote from "@components/StickyNote"
 
 export default async function Home() {
   const notionData: CardProps[] = await queryDatabase(
@@ -10,7 +11,7 @@ export default async function Home() {
   return (
     <>
       <main className={styles.main}>
-        <section className={styles.grid}>
+        <section className={styles.cardGrid}>
           {notionData.map((item, i) => (
             <Card
               key={i}
@@ -22,9 +23,14 @@ export default async function Home() {
             />
           ))}
         </section>
-        <div>
+        <section className={styles.stickyNoteGrid}>
+          {notionData.map((item, i) => (
+            <StickyNote key={i}>{item.summary}</StickyNote>
+          ))}
+        </section>
+        {/* <div>
           <pre>{JSON.stringify(notionData, null, 2)}</pre>
-        </div>
+        </div> */}
       </main>
     </>
   )
