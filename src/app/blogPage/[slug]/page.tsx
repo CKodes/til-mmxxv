@@ -19,10 +19,11 @@ export default async function BlogPage({
       <main>
         <article>
           <h1>{post.title}</h1>
-          <p>{post.date}</p>
-          <div>
+
+          {/* <div>
             <pre>{JSON.stringify(pageData, null, 2)}</pre>
-          </div>
+            <pre>{JSON.stringify(posts, null, 2)}</pre>
+          </div> */}
         </article>
       </main>
     </>

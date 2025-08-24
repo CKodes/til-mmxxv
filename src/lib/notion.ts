@@ -1,4 +1,4 @@
-import { Client } from "@notionhq/client"
+import { BlockObjectResponse, Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client"
 
 interface CardContentData {
@@ -9,6 +9,13 @@ interface CardContentData {
   slug: string
   tags: string[]
   status: string
+}
+
+interface ArticleBlocksData {
+  headingOne: string
+  headingTwo: string
+  headingThree: string
+  paragraphs: string[]
 }
 
 const apiKey = process.env.NOTION_API_KEY
@@ -37,6 +44,7 @@ export async function queryDatabase(databaseId: string) {
       ],
     },
   })
+  // console.log("response.results", response.results)
 
   const cardContentData: CardContentData[] = response.results
     .filter((item): item is PageObjectResponse => item.object === "page")
@@ -81,9 +89,44 @@ export async function queryPage(pageId: string) {
   const notion = getNotionClient()
 
   console.log("Querying page...")
+  //ListBlockChildrenResponse
   const response = await notion.blocks.children.list({
     block_id: pageId,
   })
+
+  const initial: ArticleBlocksData = {
+    headingOne: "",
+    headingTwo: "",
+    headingThree: "",
+    paragraphs: [],
+  }
+
+  const blocks = response.results.filter(
+    (item): item is BlockObjectResponse => item.object === "block"
+  )
+
+  const articleBlocksData = blocks.reduce((acc, block) => {
+    switch (block.type) {
+      case "heading_1":
+        acc.headingOne = block?.heading_1.rich_text[0]?.plain_text
+        break
+      case "heading_2":
+        acc.headingTwo = block?.heading_2.rich_text[0]?.plain_text
+        break
+      case "heading_3":
+        acc.headingThree = block?.heading_3.rich_text[0]?.plain_text
+        break
+      case "paragraph":
+        acc.paragraphs.push(block?.paragraph.rich_text[0]?.plain_text)
+        break
+      default:
+        console.log("other blocks")
+    }
+
+    return acc
+  }, initial)
+
   console.log("Page response returned")
-  return response
+  console.log("blocks", blocks)
+  return articleBlocksData
 }
