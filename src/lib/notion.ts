@@ -8,6 +8,7 @@ interface CardContentData {
   summary: string
   slug: string
   tags: string[]
+  status: string
 }
 
 const apiKey = process.env.NOTION_API_KEY
@@ -20,10 +21,20 @@ export async function queryDatabase(databaseId: string) {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "Status",
-      status: {
-        equals: "Published",
-      },
+      or: [
+        {
+          property: "Status",
+          status: {
+            equals: "Published",
+          },
+        },
+        {
+          property: "Status",
+          status: {
+            equals: "In progress",
+          },
+        },
+      ],
     },
   })
 
@@ -37,6 +48,7 @@ export async function queryDatabase(databaseId: string) {
       const summaryProp = props["Summary"]
       const tagsProp = props["Tags"]
       const slugProp = props["Slug"]
+      const statusProp = props["Status"]
 
       return {
         pageId: item?.id,
@@ -57,6 +69,8 @@ export async function queryDatabase(databaseId: string) {
           slugProp?.type === "rich_text"
             ? slugProp.rich_text?.[0]?.plain_text ?? ""
             : "",
+        status:
+          statusProp?.type === "status" ? statusProp.status?.name ?? "" : "",
       }
     })
   console.log("Database response returned")
