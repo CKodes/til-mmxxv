@@ -15,11 +15,34 @@
   box-sizing: border-box;
 }
 
+html,
 body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 100vw;
   background-color: #fefefe;
   color: #333333;
 }
+
+main {
+  width: var(--max-width_l);
+  height: 100%;
+  max-width: 95vw;
+  max-height: 95vh;
+  padding: 1rem;
+  background: inherit;
+  color: inherit;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: auto;
+}
+
 .dark-mode {
   background-color: #333333;
   color: #fefefe;
