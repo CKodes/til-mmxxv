@@ -1,6 +1,7 @@
 import { BlockObjectResponse, Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client"
-
+import { ArticleBlock } from "../app/entities/Article/types"
+import { mapArticleBlock } from "../app/entities/Article/mapper"
 interface CardContentData {
   pageId: string
   title: string
@@ -9,13 +10,6 @@ interface CardContentData {
   slug: string
   tags: string[]
   status: string
-}
-
-interface ArticleBlocksData {
-  headingOne: string
-  headingTwo: string
-  headingThree: string
-  paragraphs: string[]
 }
 
 const apiKey = process.env.NOTION_API_KEY
@@ -44,7 +38,6 @@ export async function queryDatabase(databaseId: string) {
       ],
     },
   })
-  // console.log("response.results", response.results)
 
   const cardContentData: CardContentData[] = response.results
     .filter((item): item is PageObjectResponse => item.object === "page")
@@ -94,39 +87,14 @@ export async function queryPage(pageId: string) {
     block_id: pageId,
   })
 
-  const initial: ArticleBlocksData = {
-    headingOne: "",
-    headingTwo: "",
-    headingThree: "",
-    paragraphs: [],
-  }
-
   const blocks = response.results.filter(
     (item): item is BlockObjectResponse => item.object === "block"
   )
 
-  const articleBlocksData = blocks.reduce((acc, block) => {
-    switch (block.type) {
-      case "heading_1":
-        acc.headingOne = block?.heading_1.rich_text[0]?.plain_text
-        break
-      case "heading_2":
-        acc.headingTwo = block?.heading_2.rich_text[0]?.plain_text
-        break
-      case "heading_3":
-        acc.headingThree = block?.heading_3.rich_text[0]?.plain_text
-        break
-      case "paragraph":
-        acc.paragraphs.push(block?.paragraph.rich_text[0]?.plain_text)
-        break
-      default:
-        console.log("other blocks")
-    }
-
-    return acc
-  }, initial)
+  const articleBlocksData: ArticleBlock[] = mapArticleBlock(blocks)
 
   console.log("Page response returned")
-  console.log("blocks", blocks)
+  console.log("articleBlocksData", articleBlocksData)
+
   return articleBlocksData
 }
