@@ -1,4 +1,5 @@
 import { queryDatabase, queryPage } from "@lib/notion"
+import styles from "./style.module.css"
 
 export default async function BlogPage({
   params,
@@ -20,10 +21,12 @@ export default async function BlogPage({
         <article>
           <h1>{post.title}</h1>
 
-          {/* <div>
-            <pre>{JSON.stringify(pageData, null, 2)}</pre>
-            <pre>{JSON.stringify(posts, null, 2)}</pre>
-          </div> */}
+          <div className={styles.parentStyles}>
+            <pre className={styles.wordWrap}>
+              {JSON.stringify(pageData, null, 2)}
+            </pre>
+            {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
+          </div>
         </article>
       </main>
     </>

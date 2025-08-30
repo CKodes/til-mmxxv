@@ -1,0 +1,8 @@
+.parentStyles {
+  overflow: hidden;
+}
+
+.wordWrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
