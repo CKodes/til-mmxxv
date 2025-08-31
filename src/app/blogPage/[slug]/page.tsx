@@ -1,5 +1,5 @@
 import { queryDatabase, queryPage } from "@lib/notion"
-import { renderSpan, CodeBlock } from "../../utils/renderer"
+import { renderSpan, CodeBlock } from "@utils/renderer"
 import styles from "./style.module.css"
 
 export default async function BlogPage({

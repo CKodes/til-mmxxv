@@ -1,7 +1,9 @@
 import { BlockObjectResponse, Client } from "@notionhq/client"
 import { PageObjectResponse } from "@notionhq/client"
-import { ArticleBlock } from "../app/entities/Article/types"
-import { mapArticleBlock } from "../app/entities/Article/mapper"
+import { ArticleBlock } from "@entities/Article/types"
+import { mapArticleBlock } from "@entities/Article/mapper"
+import { formatToLongMonthDDyyyy } from "@utils/dateFormatter"
+
 interface CardContentData {
   pageId: string
   title: string
@@ -57,7 +59,10 @@ export async function queryDatabase(databaseId: string) {
           titleProp?.type === "title"
             ? titleProp.title?.[0]?.plain_text ?? ""
             : "",
-        date: dateProp?.type === "date" ? dateProp.date?.start ?? "" : "",
+        date:
+          dateProp?.type === "created_time"
+            ? formatToLongMonthDDyyyy(new Date(dateProp.created_time)) ?? ""
+            : "",
         summary:
           summaryProp?.type === "rich_text"
             ? summaryProp.rich_text?.[0]?.plain_text ?? ""
@@ -75,6 +80,8 @@ export async function queryDatabase(databaseId: string) {
       }
     })
   console.log("Database response returned")
+  console.log("response.results", JSON.stringify(response.results, null, 2))
+
   return cardContentData
 }
 
@@ -94,7 +101,8 @@ export async function queryPage(pageId: string) {
   const articleBlocksData: ArticleBlock[] = mapArticleBlock(blocks)
 
   console.log("Page response returned")
-  console.log("articleBlocksData", articleBlocksData)
+  // console.log("block", JSON.stringify(blocks, null, 2))
+  // console.log("articleBlocksData", JSON.stringify(articleBlocksData, null, 2))
 
   return articleBlocksData
 }
