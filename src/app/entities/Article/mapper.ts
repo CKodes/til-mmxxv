@@ -32,6 +32,7 @@ export function mapArticleBlock(
       switch (notionBlock.type) {
         case "heading_1":
           return {
+            id: notionBlock.id,
             type: "heading_1",
             spans: notionBlock.heading_1.rich_text.map((span) => ({
               text: span.plain_text,
@@ -40,6 +41,7 @@ export function mapArticleBlock(
           }
         case "heading_2":
           return {
+            id: notionBlock.id,
             type: "heading_2",
             spans: notionBlock.heading_2.rich_text.map((span) => ({
               text: span.plain_text,
@@ -48,6 +50,7 @@ export function mapArticleBlock(
           }
         case "heading_3":
           return {
+            id: notionBlock.id,
             type: "heading_3",
             spans: notionBlock.heading_3.rich_text.map((span) => ({
               text: span.plain_text,
@@ -56,6 +59,7 @@ export function mapArticleBlock(
           }
         case "paragraph":
           return {
+            id: notionBlock.id,
             type: "paragraph",
             spans: notionBlock.paragraph.rich_text.map((span) => ({
               text: span.plain_text,
