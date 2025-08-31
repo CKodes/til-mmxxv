@@ -25,7 +25,7 @@ export default async function Home() {
         </section>
         <section className={styles.stickyNoteGrid}>
           {notionData
-            .filter((item) => item.status === "In progress")
+            .filter((item) => item.status === "Stickies")
             .map((item, i) => (
               <StickyNote key={i}>{item.summary}</StickyNote>
             ))}

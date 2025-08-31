@@ -34,7 +34,7 @@ export async function queryDatabase(databaseId: string) {
         {
           property: "Status",
           status: {
-            equals: "In progress",
+            equals: "Stickies",
           },
         },
       ],
