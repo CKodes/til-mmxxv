@@ -11,4 +11,13 @@
   all: unset;
   display: list-item;
   list-style: none;
+  padding: 10px 0;
+}
+
+.headingStyles {
+  padding: 25px 0 5px 0;
+}
+
+.paragraphStyles {
+  padding: 10px 0;
 }
