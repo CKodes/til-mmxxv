@@ -44,7 +44,7 @@ export default async function BlogPage({
         )
       case "code":
         return (
-          <div key={item.id} className={styles.codeBlock}>
+          <div key={item.id}>
             <CodeBlock lang="js">{item.plainText}</CodeBlock>
           </div>
         )

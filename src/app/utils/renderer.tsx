@@ -1,6 +1,7 @@
 import { RichTextSpan } from "../entities/Article/types"
 import type { BundledLanguage } from "shiki"
 import { codeToHtml } from "shiki"
+import styles from "./style.module.css"
 
 interface CodeBlockProps {
   children: string
@@ -13,7 +14,12 @@ export async function CodeBlock(props: CodeBlockProps) {
     theme: "github-dark",
   })
 
-  return <div dangerouslySetInnerHTML={{ __html: out }} />
+  return (
+    <div
+      className={styles.codeBlock}
+      dangerouslySetInnerHTML={{ __html: out }}
+    />
+  )
 }
 
 export function renderSpan(span: RichTextSpan, key: number): React.ReactNode {
@@ -31,7 +37,7 @@ export function renderSpan(span: RichTextSpan, key: number): React.ReactNode {
     el = <s>{el}</s>
   }
   if (span.annotations.isCode) {
-    el = <code>{el}</code>
+    el = <code className={styles.codeAnnotation}>{el}</code>
   }
   if (span.href) {
     el = (
