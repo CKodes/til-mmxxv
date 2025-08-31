@@ -1,13 +1,26 @@
 import { BlockObjectResponse, RichTextItemResponse } from "@notionhq/client"
 import { Annotations, ArticleBlock } from "./types"
 
+const ANNOTATION_MAP = {
+  bold: "isBold",
+  italic: "isItalic",
+  strikethrough: "isStrikethrough",
+  underline: "isUnderline",
+  code: "isCode",
+} as const
+
 function mapAnnotations(span: RichTextItemResponse): Annotations {
   const annotations: Annotations = {}
-  if (span.annotations.bold) annotations.isBold = true
-  if (span.annotations.italic) annotations.isItalic = true
-  if (span.annotations.strikethrough) annotations.isStrikethrough = true
-  if (span.annotations.underline) annotations.isUnderline = true
-  if (span.annotations.code) annotations.isCode = true
+
+  for (const [notionAnnotationKey, myAnnotationKey] of Object.entries(
+    ANNOTATION_MAP
+  )) {
+    if (
+      span.annotations[notionAnnotationKey as keyof typeof span.annotations]
+    ) {
+      annotations[myAnnotationKey] = true
+    }
+  }
   return annotations
 }
 
