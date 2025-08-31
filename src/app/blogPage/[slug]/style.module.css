@@ -7,17 +7,52 @@
   word-wrap: break-word;
 }
 
-.list {
-  all: unset;
-  display: list-item;
-  list-style: none;
-  padding: 10px 0;
-}
-
 .headingStyles {
-  padding: 25px 0 5px 0;
+  margin: 30px 0 10px 0;
 }
 
 .paragraphStyles {
-  padding: 10px 0;
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+/* 
+  Code block styling with line numbers
+  -----------------------------------
+  - Line numbering inspired by Playful Programming
+  - Website: https://playfulprogramming.com/
+  - Github resource: https://github.com/playfulprogramming/playfulprogramming/blob/main/src/styles/shiki.scss
+*/
+
+.codeBlock {
+  margin: 20px 0;
+  padding: 20px 0;
+  border-radius: 10px;
+  overflow-x: auto;
+  background-color: #24292e;
+}
+
+.codeBlock :global(pre.shiki) {
+  counter-reset: line;
+  padding-left: 3em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+.codeBlock :global(.line) {
+  counter-increment: line;
+  display: block;
+  position: relative;
+  min-height: 1em;
+}
+
+.codeBlock :global(.line::before) {
+  content: counter(line);
+  position: absolute;
+  left: -3em;
+  width: 2em;
+  text-align: right;
+  color: #888;
+  user-select: none;
+  white-space: pre;
 }

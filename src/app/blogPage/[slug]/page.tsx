@@ -1,5 +1,5 @@
 import { queryDatabase, queryPage } from "@lib/notion"
-import { renderSpan } from "../../utils/renderer"
+import { renderSpan, CodeBlock } from "../../utils/renderer"
 import styles from "./style.module.css"
 
 export default async function BlogPage({
@@ -44,9 +44,9 @@ export default async function BlogPage({
         )
       case "code":
         return (
-          <pre key={item.id} className={styles.wordWrap}>
-            {item.plainText}
-          </pre>
+          <div key={item.id} className={styles.codeBlock}>
+            <CodeBlock lang="js">{item.plainText}</CodeBlock>
+          </div>
         )
     }
   })
