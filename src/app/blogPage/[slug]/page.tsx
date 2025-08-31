@@ -14,6 +14,11 @@ export default async function BlogPage({
   if (!post) return <div>404: Post not found</div>
 
   const pageData = await queryPage(post.pageId)
+  const renderArticle = pageData.map((item) => (
+    <li className={styles.list} key={item.id}>
+      <p>{item.spans.map((text) => text.text)}</p>
+    </li>
+  ))
 
   return (
     <>
@@ -23,7 +28,8 @@ export default async function BlogPage({
 
           <div className={styles.parentStyles}>
             <pre className={styles.wordWrap}>
-              {JSON.stringify(pageData, null, 2)}
+              {/* {JSON.stringify(pageData, null, 2)} */}
+              {renderArticle}
             </pre>
             {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
           </div>
