@@ -17,6 +17,13 @@ export function renderSpan(span: RichTextSpan, key: number): React.ReactNode {
   if (span.annotations.isCode) {
     el = <code>{el}</code>
   }
+  if (span.href) {
+    el = (
+      <a href={span.href} target="_blank">
+        {el}
+      </a>
+    )
+  }
 
   return <span key={`${key}`}>{el}</span>
 }
