@@ -16,7 +16,9 @@ export default async function BlogPage({
   const pageData = await queryPage(post.pageId)
   const renderArticle = pageData.map((item) => (
     <li className={styles.list} key={item.id}>
-      <p>{item.spans.map((text) => text.text)}</p>
+      {item.spans.map((span, i) => (
+        <p key={`${item.id}-span-${i}`}>{span.text}</p>
+      ))}
     </li>
   ))
 
