@@ -1,4 +1,5 @@
 import { queryDatabase, queryPage } from "@lib/notion"
+import { renderSpan } from "../../utils/renderer"
 import styles from "./style.module.css"
 
 export default async function BlogPage({
@@ -20,105 +21,25 @@ export default async function BlogPage({
       case "heading_1":
         return (
           <h1 key={item.id} className={styles.headingStyles}>
-            {item.spans.map((span, i) => {
-              let el: React.ReactNode = span.text
-
-              if (span.annotations.isBold) {
-                el = <strong>{el}</strong>
-              }
-              if (span.annotations.isItalic) {
-                el = <em>{el}</em>
-              }
-              if (span.annotations.isUnderline) {
-                el = <u>{el}</u>
-              }
-              if (span.annotations.isStrikethrough) {
-                el = <s>{el}</s>
-              }
-              if (span.annotations.isCode) {
-                el = <code>{el}</code>
-              }
-
-              return <span key={`${item.id}-span-${i}`}>{el}</span>
-            })}
+            {item.spans.map((span, i) => renderSpan(span, i))}
           </h1>
         )
       case "heading_2":
         return (
           <h2 key={item.id} className={styles.headingStyles}>
-            {item.spans.map((span, i) => {
-              let el: React.ReactNode = span.text
-
-              if (span.annotations.isBold) {
-                el = <strong>{el}</strong>
-              }
-              if (span.annotations.isItalic) {
-                el = <em>{el}</em>
-              }
-              if (span.annotations.isUnderline) {
-                el = <u>{el}</u>
-              }
-              if (span.annotations.isStrikethrough) {
-                el = <s>{el}</s>
-              }
-              if (span.annotations.isCode) {
-                el = <code>{el}</code>
-              }
-
-              return <span key={`${item.id}-span-${i}`}>{el}</span>
-            })}
+            {item.spans.map((span, i) => renderSpan(span, i))}
           </h2>
         )
       case "heading_3":
         return (
           <h3 key={item.id} className={styles.headingStyles}>
-            {item.spans.map((span, i) => {
-              let el: React.ReactNode = span.text
-
-              if (span.annotations.isBold) {
-                el = <strong>{el}</strong>
-              }
-              if (span.annotations.isItalic) {
-                el = <em>{el}</em>
-              }
-              if (span.annotations.isUnderline) {
-                el = <u>{el}</u>
-              }
-              if (span.annotations.isStrikethrough) {
-                el = <s>{el}</s>
-              }
-              if (span.annotations.isCode) {
-                el = <code>{el}</code>
-              }
-
-              return <span key={`${item.id}-span-${i}`}>{el}</span>
-            })}
+            {item.spans.map((span, i) => renderSpan(span, i))}
           </h3>
         )
       case "paragraph":
         return (
           <p key={item.id} className={styles.paragraphStyles}>
-            {item.spans.map((span, i) => {
-              let el: React.ReactNode = span.text
-
-              if (span.annotations.isBold) {
-                el = <strong>{el}</strong>
-              }
-              if (span.annotations.isItalic) {
-                el = <em>{el}</em>
-              }
-              if (span.annotations.isUnderline) {
-                el = <u>{el}</u>
-              }
-              if (span.annotations.isStrikethrough) {
-                el = <s>{el}</s>
-              }
-              if (span.annotations.isCode) {
-                el = <code>{el}</code>
-              }
-
-              return <span key={`${item.id}-span-${i}`}>{el}</span>
-            })}
+            {item.spans.map((span, i) => renderSpan(span, i))}
           </p>
         )
     }
