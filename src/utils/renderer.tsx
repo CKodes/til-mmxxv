@@ -1,4 +1,4 @@
-import { RichTextSpan } from "../entities/Article/types"
+import { RichTextSpan } from "@entities/Article/types"
 import type { BundledLanguage } from "shiki"
 import { codeToHtml } from "shiki"
 import styles from "./style.module.css"
