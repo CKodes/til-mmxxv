@@ -67,6 +67,15 @@ export function mapArticleBlock(
               href: span.href ?? undefined,
             })),
           }
+        case "code":
+          return {
+            id: notionBlock.id,
+            type: "code",
+            plainText: notionBlock.code.rich_text
+              .map((rt) => rt.plain_text)
+              .join(""),
+            language: notionBlock.code.language,
+          }
         default:
           return undefined
       }

@@ -1,4 +1,4 @@
-export type ArticleBlock = HeadingBlock | ParagraphBlock
+export type ArticleBlock = HeadingBlock | ParagraphBlock | CodeBlock
 
 export interface HeadingBlock {
   id: string
@@ -10,6 +10,32 @@ export interface ParagraphBlock {
   id: string
   type: "paragraph"
   spans: RichTextSpan[]
+}
+
+export interface CodeBlock {
+  id: string
+  type: "code"
+  plainText: string
+  language:
+    | "bash"
+    | "css"
+    | "html"
+    | "javascript"
+    | "json"
+    | "markdown"
+    | "markup"
+    | "powershell"
+    | "python"
+    | "ruby"
+    | "sass"
+    | "scheme"
+    | "scss"
+    | "shell"
+    | "sql"
+    | "toml"
+    | "typescript"
+    | "xml"
+    | "yaml"
 }
 
 export interface RichTextSpan {

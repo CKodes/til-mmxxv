@@ -42,6 +42,12 @@ export default async function BlogPage({
             {item.spans.map((span, i) => renderSpan(span, i))}
           </p>
         )
+      case "code":
+        return (
+          <pre key={item.id} className={styles.wordWrap}>
+            {item.plainText}
+          </pre>
+        )
     }
   })
 
@@ -56,7 +62,7 @@ export default async function BlogPage({
               {/* {JSON.stringify(pageData, null, 2)} */}
               {renderArticle}
             </div>
-            {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
+            {/* <pre>{JSON.stringify(pageData, null, 2)}</pre> */}
           </div>
         </article>
       </main>
